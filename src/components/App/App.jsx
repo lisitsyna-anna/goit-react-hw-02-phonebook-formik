@@ -9,6 +9,8 @@ import { ContactList } from 'components/ContactList';
 
 import { PageTitle, SectionTitle, Text } from './App.styled';
 
+import { HiSearch } from 'react-icons/hi';
+
 export class App extends Component {
   state = {
     contacts: [
@@ -28,15 +30,17 @@ export class App extends Component {
       number,
     };
 
-    const isContactAdded =
-      contacts.some(
-        contact => contact.name.toLowerCase() === name.toLowerCase()
-      ) || contacts.some(contact => contact.number === number);
+    const isNameAdded = contacts.some(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
 
-    console.log(isContactAdded);
+    const isNumberAdded = contacts.some(contact => contact.number === number);
 
-    if (isContactAdded) {
+    if (isNameAdded) {
       Notify.failure(`${name} is alredy in contacts`);
+      return;
+    } else if (isNumberAdded) {
+      Notify.failure(`${number} is alredy in contacts`);
       return;
     }
 
@@ -91,10 +95,15 @@ export class App extends Component {
             <Container as="section" pt={30} pb={30}>
               <ContactForm onSubmit={this.addNewContact} />
             </Container>
+
             <Container as="section" pt={30} pb={30}>
               <SectionTitle>Contacts</SectionTitle>
               {contacts.length > 1 && (
-                <Filter value={filter} onChange={this.onChangeFilter} />
+                <Filter
+                  value={filter}
+                  onChange={this.onChangeFilter}
+                  icon={HiSearch}
+                />
               )}
 
               {contacts.length > 0 ? (

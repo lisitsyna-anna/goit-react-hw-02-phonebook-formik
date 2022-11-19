@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { Form, Label, Input, Button } from './ContactForm.styled';
 
@@ -29,7 +30,7 @@ export class ContactForm extends Component {
   render() {
     const { name, number } = this.state;
     return (
-      <Form autoComplete="off" onSubmit={this.handleSubmit}>
+      <Form onSubmit={this.handleSubmit}>
         <Label>
           Name
           <Input
@@ -63,3 +64,7 @@ export class ContactForm extends Component {
     );
   }
 }
+
+ContactForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
