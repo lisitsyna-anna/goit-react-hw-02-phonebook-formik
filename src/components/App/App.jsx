@@ -22,7 +22,8 @@ export class App extends Component {
     filter: '',
   };
 
-  addNewContact = (name, number) => {
+  addNewContact = values => {
+    const { name, number } = values;
     const { contacts } = this.state;
     const newContact = {
       id: nanoid(),
